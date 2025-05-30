@@ -2,8 +2,9 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 // import { toast } from "sonner";
 import { z } from "zod";
 
@@ -20,6 +21,7 @@ import { FormControl, FormMessage } from "@/components/ui/form";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 // import { authClient } from "@/lib/auth-client";
 
 const registerSchema = z.object({
@@ -36,7 +38,7 @@ const registerSchema = z.object({
 });
 
 const SignUpForm = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -48,25 +50,25 @@ const SignUpForm = () => {
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
     console.log(values);
-    //   await authClient.signUp.email(
-    //     {
-    //       email: values.email,
-    //       password: values.password,
-    //       name: values.name,
-    //     },
-    //     {
-    //       onSuccess: () => {
-    //         router.push("/dashboard");
-    //       },
-    //       onError: (ctx) => {
-    //         if (ctx.error.code === "USER_ALREADY_EXISTS") {
-    //           toast.error("E-mail já cadastrado.");
-    //           return;
-    //         }
-    //         toast.error("Erro ao criar conta.");
-    //       },
-    //     },
-    //   );
+    await authClient.signUp.email(
+      {
+        email: values.email,
+        password: values.password,
+        name: values.name,
+      },
+      {
+        onSuccess: () => {
+          router.push("/dashboard");
+        },
+        onError: (ctx) => {
+          if (ctx.error.code === "USER_ALREADY_EXISTS") {
+            toast.error("E-mail já cadastrado.");
+            return;
+          }
+          toast.error("Erro ao criar conta.");
+        },
+      },
+    );
   }
 
   return (
