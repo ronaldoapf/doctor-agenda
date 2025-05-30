@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 import SignOutButton from "./components/sign-out-button";
 
 export default async function DashboardPage() {
-  // const router = useRouter()
 
   const session = await auth.api.getSession({
     headers: await headers()

@@ -60,13 +60,13 @@ const LoginForm = () => {
     );
   };  
 
-  // const handleGoogleLogin = async () => {
-  //   await authClient.signIn.social({
-  //     provider: "google",
-  //     callbackURL: "/dashboard",
-  //     scopes: ["email", "profile"],
-  //   });
-  // };
+  const handleGoogleLogin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/dashboard",
+      scopes: ["email", "profile"],
+    });
+  };
 
   return (
     <Card>
@@ -121,7 +121,7 @@ const LoginForm = () => {
                   "Entrar"
                 )}
               </Button>
-              {/* <Button
+              <Button
                 variant="outline"
                 className="w-full"
                 type="button"
@@ -146,7 +146,7 @@ const LoginForm = () => {
                   />
                 </svg>
                 Entrar com Google
-              </Button> */}
+              </Button>
             </div>
           </CardFooter>
         </form>

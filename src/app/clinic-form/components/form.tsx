@@ -36,7 +36,6 @@ const ClinicForm = () => {
   });
 
   const onSubmit = async (data: ClinicFormValues) => {
-    console.log(data)
     try {
       await createClinic(data.name);
     } catch (error) {
